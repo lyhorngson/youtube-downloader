@@ -13,9 +13,11 @@ function createWindow() {
     height: 740,
     minWidth: 800,
     minHeight: 600,
-    title: 'YouTube Playlist Downloader',
-    titleBarStyle: 'hiddenInset', // Native macOS traffic light controls
-    trafficLightPosition: { x: 16, y: 16 },
+    title: 'CamboNex | Media Downloader',
+    ...(process.platform === 'darwin' ? {
+      titleBarStyle: 'hiddenInset',
+      trafficLightPosition: { x: 16, y: 16 }
+    } : {}),
     backgroundColor: '#0f172a',
     webPreferences: {
       nodeIntegration: false,

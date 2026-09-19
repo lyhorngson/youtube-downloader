@@ -1,56 +1,87 @@
-# YouTube Playlist Downloader (macOS Pro UI)
+# CamboNex | Media Downloader
 
-A modern, fast, and native macOS desktop app to inspect and download entire YouTube playlists or individual videos.
+A modern, high-performance desktop application to inspect and batch download YouTube playlists, channels, or individual videos with custom formats (MP4, WebM, MKV, MP3, M4A).
 
-Built with **React**, **Tailwind CSS**, **Lucide Icons**, **Express Backend**, and **Electron** on top of the powerful **`yt-dlp`** and **`ffmpeg`** engines.
+**Powered by CamboNex** • Built with React, Tailwind CSS, Lucide Icons, Express, and Electron on top of `yt-dlp` and `ffmpeg`.
 
 ---
 
 ## Features
 
-- **macOS Native Window Styling:** Sleek dark mode, hidden titlebar with native macOS traffic-light buttons.
-- **Instant Playlist Inspection:** Uses `yt-dlp --flat-playlist -J` to parse playlists with thumbnails and video durations in seconds.
-- **Granular Selection:** Select all, deselect all, or hand-pick individual tracks with checkboxes.
-- **Format & Quality Switcher:**
-  - Full Video (Best 4K/Auto, 1080p HD, 720p HD)
-  - Audio Extraction (MP3 320kbps, M4A)
-- **Live Real-Time Progress Stream:** Per-video progress bars, download speeds (MB/s), and ETA estimates via Server-Sent Events (SSE).
-- **Direct Finder Integration:** 1-click button to open your downloaded files in macOS Finder.
+- **CamboNex Component UI:** Clean, modern cards, light/dark mode switcher, and native desktop window controls.
+- **Fast Playlist Inspection:** Parses complete playlists with thumbnails and video durations in seconds using `yt-dlp --flat-playlist -J`.
+- **Advanced Selection Toolbar:** Master checkbox (with indeterminate state), **Select All**, **Deselect All**, and **Invert Selection** buttons.
+- **Strict Format & Container Control:**
+  - **Video Formats:** MP4 (Mac/Apple QuickTime friendly), WebM, Original (As-is), MKV.
+  - **Resolutions:** Best 4K/Auto, 1080p Full HD, 720p HD, 480p.
+  - **Audio Formats:** MP3 (320kbps), M4A (Apple AAC), Opus (WebM Audio), WAV (Lossless).
+- **Live Transfer Stream:** Real-time percentage progress bars, live transfer speed (MB/s), and ETA estimates via Server-Sent Events (SSE).
+- **OS File Manager Integration:** 1-click button to open your download destination directly in macOS Finder or Windows File Explorer.
 
 ---
 
-## Quick Start (from Terminal)
+## 🍎 macOS Setup & Run
 
-Open Terminal in this folder:
-
+### 1. Prerequisites (Homebrew)
 ```bash
-cd ~/Desktop/youtube-downloader-mac
+brew install node yt-dlp ffmpeg
 ```
 
-### 1. Install Dependencies
+### 2. Install Project Dependencies
 ```bash
+cd ~/Desktop/youtube-downloader-mac
 npm install
 ```
 
-### 2. Run the App
-
-#### Option A: Native macOS Desktop App (Electron)
-```bash
-npm start
-```
-*Opens as a native desktop window on your Mac with macOS window controls.*
-
-#### Option B: Browser Web UI
-```bash
-npm run dev
-```
-*Opens the local development server at `http://localhost:5173` which you can view in Safari or Chrome.*
+### 3. Launch the App
+- **Desktop Window Mode:**
+  ```bash
+  npm start
+  ```
+- **Web Browser Mode:**
+  ```bash
+  npm run dev
+  ```
 
 ---
 
-## System Requirements
+## 🪟 Windows Setup & Run (Windows 10 & 11)
 
-- **macOS**
-- **Node.js** (Installed)
-- **yt-dlp** (Installed via `brew install yt-dlp`)
-- **ffmpeg** (Installed via `brew install ffmpeg`)
+### 1. Prerequisites (PowerShell as Administrator)
+Install Node.js, `yt-dlp`, and `ffmpeg` using Windows Package Manager (`winget`):
+```powershell
+winget install OpenJS.NodeJS
+winget install yt-dlp.yt-dlp
+winget install Gyan.FFmpeg
+```
+
+### 2. Install Project Dependencies
+Open PowerShell or Command Prompt inside the project folder:
+```powershell
+npm install
+```
+
+### 3. Launch the App on Windows
+- **Desktop Window Mode:**
+  ```powershell
+  npm start
+  ```
+- **Web Browser Mode:**
+  ```powershell
+  npm run dev
+  ```
+
+---
+
+## System Architecture
+
+```
+youtube-downloader-mac/
+├── electron.js        # Native desktop window manager (macOS & Windows)
+├── server.js          # Express backend coordinating yt-dlp & ffmpeg
+├── src/
+│   ├── App.jsx        # CamboNex React interface & selection engine
+│   └── index.css      # Tailwind & typography styles
+├── tailwind.config.js # CamboNex design tokens & colors
+└── package.json       # Project dependencies & scripts
+```

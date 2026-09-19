@@ -49,12 +49,16 @@ app.get('/api/config', (req, res) => {
   });
 });
 
-// Open folder in macOS Finder
+// Open folder in macOS Finder or Windows File Explorer
 app.post('/api/open-folder', (req, res) => {
   const { folder } = req.body;
   const target = folder || path.join(os.homedir(), 'Downloads');
   if (fs.existsSync(target)) {
-    spawn('open', [target]);
+    if (process.platform === 'win32') {
+      spawn('explorer.exe', [target]);
+    } else {
+      spawn('open', [target]);
+    }
     return res.json({ success: true });
   }
   res.status(404).json({ error: 'Folder does not exist' });
@@ -73,7 +77,7 @@ app.post('/api/inspect', (req, res) => {
     '-J',
     '--no-warnings',
     url
-  ]);
+  ], { shell: process.platform === 'win32' });
 
   let stdoutData = '';
   let stderrData = '';
@@ -246,7 +250,7 @@ function downloadSingleItem(item, options, outputFolder) {
 
     args.push(item.url);
 
-    const proc = spawn('yt-dlp', args);
+    const proc = spawn('yt-dlp', args, { shell: process.platform === 'win32' });
     activeProcesses.set(item.id, proc);
 
     proc.stdout.on('data', (chunk) => {
